@@ -5,18 +5,21 @@
 #include "lista.h"
 
 int main() {
+    // Declaração das instâncias das estruturas de dados
     Pilha p;
     Fila f;
     Lista l;
 
-    char texto[255];
-    int opcao;
+    char texto[255]; // Buffer para armazenar as strings digitadas
+    int opcao;       // Variável para armazenar a escolha do menu
 
+    // Inicialização obrigatória de cada estrutura para evitar lixo de memória
     inicializarPilha(&p);
     inicializarFila(&f);
     inicializarLista(&l);
 
     do {
+        // Exibição do Menu de Opções
         printf("\n===== MENU =====\n");
         printf("1 - Empilhar (Pilha)\n");
         printf("2 - Desempilhar (Pilha)\n");
@@ -25,19 +28,20 @@ int main() {
         printf("5 - Inserir na Lista\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
+        
         scanf("%d", &opcao);
-        getchar(); // limpa o ENTER do buffer
+        getchar(); // Limpa o caractere 'ENTER' que fica sobrando no buffer do teclado
 
         switch(opcao) {
-            case 1:
+            case 1: // Operação de Inserção na Pilha (LIFO)
                 printf("Digite um texto: ");
                 fgets(texto, 255, stdin);
-                texto[strcspn(texto, "\n")] = '\0'; // remove \n
+                texto[strcspn(texto, "\n")] = '\0'; // Remove a quebra de linha do final da string
                 empilhar(&p, texto);
                 printf("Empilhado com sucesso!\n");
                 break;
 
-            case 2:
+            case 2: // Operação de Remoção na Pilha
                 if (pilhaVazia(&p)) {
                     printf("Pilha vazia!\n");
                 } else {
@@ -46,7 +50,7 @@ int main() {
                 }
                 break;
 
-            case 3:
+            case 3: // Operação de Inserção na Fila (FIFO)
                 printf("Digite um texto: ");
                 fgets(texto, 255, stdin);
                 texto[strcspn(texto, "\n")] = '\0';
@@ -54,7 +58,7 @@ int main() {
                 printf("Enfileirado com sucesso!\n");
                 break;
 
-            case 4:
+            case 4: // Operação de Remoção na Fila
                 if (filaVazia(&f)) {
                     printf("Fila vazia!\n");
                 } else {
@@ -63,11 +67,11 @@ int main() {
                 }
                 break;
 
-            case 5:
+            case 5: // Operação de Inserção na Lista (Encadeada)
                 printf("Digite um texto: ");
                 fgets(texto, 255, stdin);
                 texto[strcspn(texto, "\n")] = '\0';
-                inserirInicio(&l, texto);
+                inserirInicio(&l, texto); // Insere o novo elemento sempre no começo da lista
                 printf("Inserido na lista!\n");
                 break;
 
@@ -79,7 +83,7 @@ int main() {
                 printf("Opcao invalida!\n");
         }
 
-    } while(opcao != 0);
+    } while(opcao != 0); // O programa roda até que o usuário digite 0
 
     return 0;
 }
